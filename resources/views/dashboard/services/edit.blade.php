@@ -25,11 +25,21 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" value="{{ $service->name }}" class="form-control" id="name" required placeholder="Enter service name">
+                    <input type="text" name="name" value="{{ $service->name }}" @class(['form-control' , 'is-invalid' => $errors->has('name')]) id="name" required placeholder="Enter service name">
+                    @error('name')
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="description">Desription</label>
-                    <input type="text" name="description" class="form-control" value="{{ $service->description }}" id="description" required placeholder="Enter service description">
+                    <input type="text" name="description" @class(['form-control' , 'is-invalid' => $errors->has('description')]) value="{{ $service->description }}" id="description" required placeholder="Enter service description">
+                    @error('description')
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <span>Image</span> <br>
@@ -42,6 +52,11 @@
                         @endif
                     </label>
                     <input type="file" id="image" name="image" accept="image/*">
+                    @error('image')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="card-footer">

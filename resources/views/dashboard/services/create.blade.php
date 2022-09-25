@@ -24,11 +24,21 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" required placeholder="Enter service name">
+                    <input type="text" name="name" @class(['form-control' , 'is-invalid' => $errors->has('name')])  id="name" value="{{ old('name') }}" placeholder="Enter service name">
+                    @error('name')
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="description">Desription</label>
-                    <input type="text" name="description" class="form-control" id="description" required placeholder="Enter service description">
+                    <input type="text" name="description" @class(['form-control' , 'is-invalid' => $errors->has('description')]) id="description" value="{{ old('description') }}"  placeholder="Enter service description">
+                    @error('description')
+                        <span class="invalid-feedback">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <span>Image</span> <br>
@@ -36,7 +46,12 @@
                         <i class="fas fa-images fs-2"></i>
                         <img id="previewed-image" src="" alt="" class="img-fluid">
                     </label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <input type="file" id="image" name="image" accept="image/*" >
+                    @error('image')
+                        <span class="text-danger">
+                            {{ $message }}
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="card-footer">

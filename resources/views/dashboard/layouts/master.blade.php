@@ -10,6 +10,7 @@
             cursor: pointer;
         }
     </style>
+    @vite(['resources/js/app.js'])
 </head>
 
 <body class="hold-transition sidebar-mini">

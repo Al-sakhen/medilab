@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\services\storeServiceRequest;
+use App\Http\Requests\services\updateServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +38,7 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storeServiceRequest $request)
     {
         if( $request->hasFile('image') ){
             $file = $request->file('image');  // uploadedFile
@@ -82,7 +84,7 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(updateServiceRequest $request, $id)
     {
         $service = Service::findOrFail($id);
         $old_image = $service->image;

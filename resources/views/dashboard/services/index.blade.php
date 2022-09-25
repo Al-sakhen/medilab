@@ -25,17 +25,17 @@
                             <td>{{{ $loop->iteration }}}</td>
                             <td>{{ $service->name }}</td>
                             <td>{{ $service->description }}</td>
-                            <td> <img src="{{ asset('storage/'. $service->image) }}" height="50"> </td>
+                            <td> <img src="{{ asset('storage/'. $service->image) }}" width="90"> </td>
                             <td>
                                 <div class="d-flex">
                                     <form action="{{ route('services.edit' , $service->id) }}" method="GET">
                                         @csrf
                                         <button class="btn btn-sm btn-info">Update</button>
                                     </form>
-                                    <form action="{{ route('services.destroy' , $service->id) }}" method="post" class="ml-2">
+                                    <form action="{{ route('services.destroy' , $service->id) }}" method="post" class="ml-2 delete-form">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <input type="button" class="btn btn-sm btn-outline-danger delete-btn" value="Delete">
                                     </form>
                                 </div>
                             </td>
@@ -52,3 +52,24 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('.delete-btn').on('click' , ()=>{
+            Swal.fire({
+                title: 'Are you sure to delete this service?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $('.delete-btn').closest('.delete-form').submit();
+                }
+            })
+        })
+    </script>
+@endpush
+
