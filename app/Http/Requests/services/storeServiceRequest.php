@@ -26,16 +26,15 @@ class storeServiceRequest extends FormRequest
         return [
             'name'          => ['required' , 'string' , 'min:3' , 'max:50'],
             'description'   => ['required' , 'string' , 'min:3' , 'max:70'],
-            'image'         => ['required' , 'image', 'mimes:png,jpg,svg,gpig']
+            'icon_id'       => ['required']
         ];
     }
 
 
-    // public function messages()
-    // {
-    //     return [
-    //         'name.required' => 'test test test',
-    //         'name.string'   => 'The name must be astring',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'icon_id.required' => 'The icon filed is required',
+        ];
+    }
 }

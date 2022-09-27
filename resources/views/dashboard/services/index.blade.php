@@ -15,7 +15,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
+                        <th>Icon</th>
                         <th>Operations</th>
                     </tr>
                 </thead>
@@ -25,7 +25,7 @@
                             <td>{{{ $loop->iteration }}}</td>
                             <td>{{ $service->name }}</td>
                             <td>{{ $service->description }}</td>
-                            <td> <img src="{{ asset('storage/'. $service->image) }}" width="90"> </td>
+                            <td> <i class="{{ $service->icon->class }}"></i> </td>
                             <td>
                                 <div class="d-flex">
                                     <form action="{{ route('services.edit' , $service->id) }}" method="GET">

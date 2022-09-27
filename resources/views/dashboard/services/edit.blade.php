@@ -3,18 +3,7 @@
     'page_title'    => 'Update Service',
 ])
 @push('styles')
-    <style>
-        .preview-image{
-            width: 90px;
-            height: 90px;
-            border: 1px solid black;
-            border-radius: 15px;
-        }
-        #image{
-            opacity: 0;
-            overflow: hidden;
-        }
-    </style>
+    {{-- <link rel="stylesheet" href="{{ asset('dashboard/assets/css/services.css') }}"> --}}
 @endpush
 
 @section('content')
@@ -42,18 +31,17 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <span>Image</span> <br>
-                    <label for="image" class="preview-image d-flex align-items-center justify-content-center">
-                        @if ($service->image)
-                            <img src="{{ asset('storage/'. $service->image) }}" height="150">
-                        @else
-                            <i class="fas fa-images fs-2"></i>
-                            <img id="previewed-image" src="" alt="" class="img-fluid">
-                        @endif
+                    <label for="icons">
+                        Select Icon
                     </label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                    @error('image')
-                        <span class="text-danger">
+                    <select id="icons" name="icon_id" class="custom-select">
+                        <option disabled>Select icon</option>
+                        @foreach ($icons as $icon)
+                            <option value="{{ $icon->id }}" @selected( $service->icon_id == $icon->id )>{{ $icon->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('icon_id')
+                        <span class="text-danger text-sm">
                             {{ $message }}
                         </span>
                     @enderror
@@ -67,11 +55,7 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $('#image').on('change' , function (e){
-            $('#previewed-image').attr('src' , URL.createObjectURL(e.target.files[0]))
-        })
-    </script>
+    {{-- <script src="{{ asset('dashboard/assets/js/services.js') }}"></script> --}}
 @endpush
 
 

@@ -26,7 +26,14 @@ class updateServiceRequest extends FormRequest
         return [
             'name'          => ['required' , 'string' , 'min:3' , 'max:50'],
             'description'   => ['required' , 'string' , 'min:3' , 'max:70'],
-            'image'         => ['image', 'mimes:png,jpg,svg,gpig']
+            'icon_id'         => ['required']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'icon_id.required' => 'The icon filed is required',
         ];
     }
 }

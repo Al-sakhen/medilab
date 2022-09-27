@@ -5,6 +5,7 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\services\storeServiceRequest;
 use App\Http\Requests\services\updateServiceRequest;
+use App\Models\Icon;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,7 +30,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('dashboard.services.create');
+        $icons = Icon::all();
+        return view('dashboard.services.create' , compact('icons'));
     }
 
     /**
@@ -40,15 +42,15 @@ class ServiceController extends Controller
      */
     public function store(storeServiceRequest $request)
     {
-        if( $request->hasFile('image') ){
-            $file = $request->file('image');  // uploadedFile
-            $path = $file->store('services' ,['disk' => 'public']);
-        }
+        // if( $request->hasFile('image') ){
+        //     $file = $request->file('image');  // uploadedFile
+        //     $path = $file->store('services' ,['disk' => 'public']);
+        // }
 
         Service::create([
             'name'          => $request->name,
             'description'   => $request->description,
-            'image'         => $path,
+            'icon_id'       => $request->icon_id,
         ]);
 
         return redirect()->route('services.index');
@@ -74,7 +76,9 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::findOrFail($id);
-        return view('dashboard.services.edit' , compact('service'));
+        $icons = Icon::all();
+
+        return view('dashboard.services.edit' , compact('service' , 'icons'));
     }
 
     /**
@@ -87,22 +91,23 @@ class ServiceController extends Controller
     public function update(updateServiceRequest $request, $id)
     {
         $service = Service::findOrFail($id);
-        $old_image = $service->image;
+        // $old_image = $service->image;
 
-        if($request->hasFile('image')){
-            $file = $request->file('image');  // uploadedFile
-            $path = $file->store('services' , ['disk' => 'public']);
-        }
+        // if($request->hasFile('image')){
+        //     $file = $request->file('image');  // uploadedFile
+        //     $path = $file->store('services' , ['disk' => 'public']);
+        // }
 
         $service->update([
             'name'          => $request->name,
             'description'   => $request->description,
-            'image'         => $path ?? $old_image,
+            // 'image'         => $path ?? $old_image,
+            'icon_id'       => $request->icon_id,
         ]);
 
-        if($old_image && $request->hasFile('image')){
-            Storage::disk('public')->delete($old_image);
-        }
+        // if($old_image && $request->hasFile('image')){
+        //     Storage::disk('public')->delete($old_image);
+        // }
 
 
         return redirect()->route('services.index');

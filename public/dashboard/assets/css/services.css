@@ -1,0 +1,11 @@
+.preview-image{
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+}
+#image{
+    opacity: 0;
+    overflow: hidden;
+}

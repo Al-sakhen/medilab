@@ -14,18 +14,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('icons', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('class');
             $table->timestamps();
         });
 
+
         Artisan::call('db:seed', [
-            '--class' => 'UserSeeder',
+            '--class' => 'IconsSeeder',
         ]);
     }
 
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('icons');
     }
 };
